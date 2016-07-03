@@ -10,13 +10,13 @@ if [ "$1" = "pull" ]; then
     git pull origin master;
     echo "pulled origin";
     exit;
-elif [ "$1" = "run" ]; then
-	npm run;
+elif [ "$1" = "dev" ]; then
+	npm dev;
 else
     echo "========] Git Sh File [========";
     echo "Commands: ";
     echo " - pull";
-    echo " - run";
+    echo " - dev";
 fi
 
 
