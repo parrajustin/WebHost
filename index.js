@@ -1,18 +1,17 @@
-var express = require('express'),
-	app = express(),
-	http = require('http'),
-	https = require('https'),
-	fs = require('fs');
+var express = require('express');
+var http = require('http');
+var https = require('https');
+var app = express();
+var fs = require('fs');
 
-var port = 80;
+///////////////////////////////////////////////////////
 
-var options = {
-    key: fs.readFileSync('key.pem'),
-    cert: fs.readFileSync('cert.pem')
-};
-
-var server = https.createServer(options, app).listen(port, function(){
-  console.log("Express server listening on port " + port);
+app.all('*', function(req, res, next){
+  if (req.secure) {
+    return next();
+  };
+  //res.redirect('https://localhost:'+HTTPS_PORT+req.url);
+  res.redirect('https://'+req.hostname+':'+HTTPS_PORT+req.url);
 });
 
 //Home
@@ -52,3 +51,21 @@ app.get('/style.css', function(req, res) {
 		}
 	});
 });
+
+///////////////////////////////////////////////////////
+
+var HTTP_PORT = 80;
+var HTTPS_PORT = 443;
+
+var options = {
+    key: fs.readFileSync('key.pem'),
+    cert: fs.readFileSync('cert.pem')
+};
+
+var secureServer = https.createServer(options, app).listen(HTTPS_PORT, function(){
+  console.log("Secure Express Server listening on port " + HTTPS_PORT);
+});
+
+var insecureServer = http.createServer(app).listen(HTTP_PORT, function() {
+  console.log('Insecure Express Server listening on port ' + HTTP_PORT);
+})
