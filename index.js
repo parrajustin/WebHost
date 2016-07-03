@@ -4,7 +4,7 @@ var express = require('express'),
 	https = require('https'),
 	fs = require('fs');
 
-var port = 8000;
+var port = 80;
 
 var options = {
     key: fs.readFileSync('key.pem'),
