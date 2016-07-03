@@ -3,7 +3,7 @@ var app = express();
 
 app.get('/', function(req, res) {
 	var options = {
-		root: __dirname + '/WebHost/',
+		root: __dirname,
 		dotfiles: 'deny',
 		headers: {
 			'x-timestamp': Date.now(),
