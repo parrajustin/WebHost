@@ -1,9 +1,25 @@
 var express = require('express');
-var path = require('path');
 var app = express();
 
 app.get('/', function(req, res) {
-	res.sendFile(path.join(__dirname, '../WebHome', 'index.html'));
+	var options = {
+		root: __dirname + '/WebHost/',
+		dotfiles; 'deny',
+		headers: {
+			'x-timestamp': Date.now(),
+			'x-sent': true
+		}
+	};
+
+	res.sendFile('/WebHome/index.html', options, function(err) {
+		if (err) {
+			console.log(err);
+			res.status(err.status).end();
+		}
+		else {
+			console.log('Sent:', fileName);
+		}
+	});
 });
 
 app.listen(80);
