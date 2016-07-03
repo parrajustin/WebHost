@@ -1,5 +1,12 @@
 var express = require('express');
 var app = express();
+var https = require('https');
+var fs = require('fs');
+
+https.createServer({
+	key: fs.readFileSync('key.pem'),
+	cert: fs.readFileSync('cert.pem')
+}, app).listen(80);
 
 //Home
 app.get('/', function(req, res) {
@@ -38,6 +45,3 @@ app.get('/style.css', function(req, res) {
 		}
 	});
 });
-
-
-app.listen(80);
