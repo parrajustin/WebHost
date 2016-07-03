@@ -11,7 +11,7 @@ if [ "$1" = "pull" ]; then
     echo "pulled origin";
     exit;
 elif [ "$1" = "dev" ]; then
-	npm dev;
+	node index.js 80;
 else
     echo "========] Git Sh File [========";
     echo "Commands: ";
