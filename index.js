@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 var express = require('express');
-// var http = require('http');
+var http = require('http');
 // var https = require('https');
 var app = express();
 // var fs = require('fs');
 
-///////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 app.all('*', function(req, res, next){
   // 	if (req.secure) {
@@ -39,7 +39,7 @@ app.get('/', function(req, res) {
 });
 
 //Home css
-app.get('*/home.css', function(req, res) {
+app.get('/home.css', function(req, res) {
 	var options = {
 		root: __dirname,
 		dotfiles: 'deny',
@@ -57,7 +57,7 @@ app.get('*/home.css', function(req, res) {
 	});
 });
 
-///////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 var HTTP_PORT = 80;
 //var HTTPS_PORT = 443;
