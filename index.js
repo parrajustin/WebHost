@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 var express = require('express');
-var http = require('http');
-var https = require('https');
+// var http = require('http');
+// var https = require('https');
 var app = express();
-var fs = require('fs');
+// var fs = require('fs');
 
 ///////////////////////////////////////////////////////
 
@@ -39,7 +39,7 @@ app.get('/', function(req, res) {
 });
 
 //Home css
-app.get('/style.css', function(req, res) {
+app.get('*/home.css', function(req, res) {
 	var options = {
 		root: __dirname,
 		dotfiles: 'deny',
@@ -49,7 +49,7 @@ app.get('/style.css', function(req, res) {
 		}
 	};
 
-	res.sendFile('/WebHome/style.css', options, function(err) {
+	res.sendFile('/css/home.css', options, function(err) {
 		if (err) {
 			console.log(err);
 			res.status(err.status).end();

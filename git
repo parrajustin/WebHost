@@ -11,12 +11,18 @@ if [ "$1" = "pull" ]; then
     echo "pulled origin";
     exit;
 elif [ "$1" = "dev" ]; then
-	node index.js 80;
+	node index.js;
+elif [ "$1" = "start" ]; then
+	forever start --uid "production" index.js;
+elif [ "$1" = "stop" ]; then
+	forever stop production;
 else
     echo "========] Git Sh File [========";
     echo "Commands: ";
     echo " - pull";
     echo " - dev";
+    echo " - start";
+    echo " - stop";
 fi
 
 
