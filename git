@@ -11,10 +11,13 @@ if [ "$1" = "pull" ]; then
     echo "pulled origin";
     exit;
 elif [ "$1" = "dev" ]; then
+	npm install;
 	node index.js;
 elif [ "$1" = "start" ]; then
+	npm install;
 	forever start --uid "production" index.js;
 elif [ "$1" = "stop" ]; then
+	npm install;
 	forever stop production;
 else
     echo "========] Git Sh File [========";

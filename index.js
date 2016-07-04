@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 var express = require('express');
 var http = require('http');
+var compression = require('compression');
 // var https = require('https');
-var app = express();
 // var fs = require('fs');
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+var app = express();
+app.use(compression());
 
 app.all('*', function(req, res, next){
   // 	if (req.secure) {
@@ -30,7 +33,7 @@ app.get('/', function(req, res) {
 		}
 	};
 
-	res.sendFile('/WebHome/index.html', options, function(err) {
+	res.sendFile('/public/home.js', options, function(err) {
 		if (err) {
 			console.log(err);
 			res.status(err.status).end();
