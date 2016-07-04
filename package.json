@@ -1,15 +1,23 @@
 {
-  "name": "web",
-  "version": "0.0.1",
-  "description": "node based web site with express and vue",
+  "name": "WebHost",
+  "version": "0.1.0",
+  "description": "Fuzzion.xyz Website Hosted on Digital Ocean",
+  "author": "Justin R. Parra <parra.justin.main@gmail.com>",
   "main": "index.js",
   "scripts": {
-    "test": "node index.js"
+    "start": "npm run browserify && node index.js",
+    "browserify": "browserify -t reactify -t require-globify public/index.js -o public/bundle.js"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
+    "browserify": "^13.0.1",
     "express": "^4.14.0",
+    "node-jsx": "^0.13.3",
+    "react": "^15.2.0",
+    "react-dom": "^15.2.0",
+    "react-engine": "^4.0.0",
+    "react-router": "^2.5.2",
+    "reactify": "^1.1.1",
+    "require-globify": "^1.1.0",
     "compression": "^1.6.2"
   }
 }

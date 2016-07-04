@@ -15,58 +15,18 @@
 
 'use strict';
 
-// make `.jsx` file requirable by node
-require('node-jsx').install();
+var Layout = require('./layout.jsx');
+var React = require('react');
 
-var path = require('path');
-var express = require('express');
-var renderer = require('react-engine');
-var compression = require('compression');
+module.exports = React.createClass({
 
-var app = express();
+  render: function render() {
 
-// create the view engine with `react-engine`
-var engine = renderer.server.create({
-  routes: require(path.join(__dirname + '/public/routes.jsx')),
-  routesFilePath: path.join(__dirname + '/public/routes.jsx')
-});
-
-// set the engine
-app.engine('.jsx', engine);
-
-// set the view directory
-app.set('views', __dirname + '/public/views');
-
-// set jsx as the view engine
-app.set('view engine', 'jsx');
-
-// finally, set the custom view
-app.set('view', renderer.expressView);
-
-//expose public folder as static assets
-app.use(express.static(__dirname + '/public'));
-
-app.get('/', function(req, res) {
-  res.render(req.url, {
-    title: 'React Engine Express Sample App',
-    name: 'Index'
-  });
-});
-
-// 404 template
-app.use(function(req, res) {
-  res.render('404', {
-    title: 'React Engine Express Sample App',
-    url: req.url
-  });
-});
-
-app.use(compression());
-
-var server = app.listen(80, function() {
-
-  var host = server.address().address;
-  var port = server.address().port;
-
-  console.log('Example app listening at http://%s:%s', host, port);
+    return (
+      <Layout {...this.props}>
+        <h3>URL: {this.props.url} - Not Found(404)</h3>
+        <h6>I am a Plain vanilla react view</h6>
+      </Layout>
+    );
+  }
 });
