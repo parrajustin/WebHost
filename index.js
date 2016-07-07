@@ -30,7 +30,15 @@ var engine = renderer.server.create({
   routesFilePath: path.join(__dirname + '/public/routes.jsx')
 });
 
-/////////////////////////////////////////////////////////////////////////////
+if (process.env.NODE_ENV === "development") {
+  console.log('Development Mode');
+} else {
+  console.log('Production Mode');
+}
+
+
+
+
 
 // set the engine
 app.engine('.jsx', engine);
@@ -50,7 +58,11 @@ app.use(express.static(__dirname + '/resources'));
 //set compression
 app.use(compression());
 
-/////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
 
 app.get('/', function(req, res) {
   res.render(req.url, {
@@ -103,7 +115,11 @@ app.use(function(req, res) {
   });
 });
 
-/////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
 
 var server = app.listen(80, function() {
 
