@@ -47,6 +47,9 @@ app.set('view', renderer.expressView);
 //expose public folder as static assets
 app.use(express.static(__dirname + '/resources'));
 
+//set compression
+app.use(compression());
+
 /////////////////////////////////////////////////////////////////////////////
 
 app.get('/', function(req, res) {
@@ -101,8 +104,6 @@ app.use(function(req, res) {
 });
 
 /////////////////////////////////////////////////////////////////////////////
-
-app.use(compression());
 
 var server = app.listen(80, function() {
 
