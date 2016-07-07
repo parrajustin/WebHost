@@ -18,18 +18,19 @@
 // make `.jsx` file requirable by node
 require('node-jsx').install();
 
-var path = require('path');
-var express = require('express');
-var renderer = require('react-engine');
+var path        = require('path');
+var express     = require('express');
+var renderer    = require('react-engine');
 var compression = require('compression');
-
-var app = express();
+var app         = express();
 
 // create the view engine with `react-engine`
 var engine = renderer.server.create({
   routes: require(path.join(__dirname + '/public/routes.jsx')),
   routesFilePath: path.join(__dirname + '/public/routes.jsx')
 });
+
+/////////////////////////////////////////////////////////////////////////////
 
 // set the engine
 app.engine('.jsx', engine);
@@ -44,12 +45,50 @@ app.set('view engine', 'jsx');
 app.set('view', renderer.expressView);
 
 //expose public folder as static assets
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/resources'));
+
+/////////////////////////////////////////////////////////////////////////////
 
 app.get('/', function(req, res) {
   res.render(req.url, {
-    title: 'React Engine Express Sample App',
-    name: 'Index'
+    title: 'Fuzzion Home',
+    name: 'home'
+  });
+});
+
+app.get('/home', function(req, res) {
+  res.render(req.url, {
+    title: 'Fuzzion Home',
+    name: 'home'
+  });
+});
+
+app.get('/account', function(req, res) {
+  res.render(req.url, {
+    title: 'Fuzzion Home',
+    name: 'home'
+  });
+});
+
+app.get('*/api/comment', function(req, res) {
+  res.send('[{id:1,text:"This is a test"},{id:2,text:"test2"}]');
+});
+
+app.get('*/resources/:fileName', function(req, res) {
+  var options = {
+    root: __dirname,
+    dotfiles: 'deny',
+    headers: {
+      'x-timestamp': Date.now(),
+      'x-sent': true
+    }
+  };
+
+  res.sendFile('/resources/' + req.params.fileName, options, function(err) {
+    if (err) {
+      console.log(err);
+      res.status(err.status).end();
+    }
   });
 });
 
@@ -60,6 +99,8 @@ app.use(function(req, res) {
     url: req.url
   });
 });
+
+/////////////////////////////////////////////////////////////////////////////
 
 app.use(compression());
 

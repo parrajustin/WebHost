@@ -42409,21 +42409,6 @@ module.exports = warning;
 
 }).call(this,require('_process'))
 },{"_process":53}],239:[function(require,module,exports){
-/*-------------------------------------------------------------------------------------------------------------------*\
- |  Copyright (C) 2015 PayPal                                                                                          |
- |                                                                                                                     |
- |  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance     |
- |  with the License.                                                                                                  |
- |                                                                                                                     |
- |  You may obtain a copy of the License at                                                                            |
- |                                                                                                                     |
- |       http://www.apache.org/licenses/LICENSE-2.0                                                                    |
- |                                                                                                                     |
- |  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed   |
- |  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for  |
- |  the specific language governing permissions and limitations under the License.                                     |
- \*-------------------------------------------------------------------------------------------------------------------*/
-
 'use strict';
 
 var Routes = require('./routes.jsx');
@@ -42432,7 +42417,7 @@ var Client = require('react-engine/lib/client');
 // Include all view files. Browerify doesn't do
 // this automatically as it can only operate on
 // static require statements.
-require('./views/404.jsx');require('./views/account.jsx');require('./views/layout.jsx');
+require('./views/404.jsx');require('./views/account.jsx');require('./views/home.jsx');require('./views/layout.jsx');
 
 // boot options
 var options = {
@@ -42449,22 +42434,7 @@ document.addEventListener('DOMContentLoaded', function onLoad() {
   Client.boot(options);
 });
 
-},{"./routes.jsx":240,"./views/404.jsx":241,"./views/account.jsx":242,"./views/layout.jsx":243,"react-engine/lib/client":56}],240:[function(require,module,exports){
-/*-------------------------------------------------------------------------------------------------------------------*\
-|  Copyright (C) 2015 PayPal                                                                                          |
-|                                                                                                                     |
-|  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance     |
-|  with the License.                                                                                                  |
-|                                                                                                                     |
-|  You may obtain a copy of the License at                                                                            |
-|                                                                                                                     |
-|       http://www.apache.org/licenses/LICENSE-2.0                                                                    |
-|                                                                                                                     |
-|  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed   |
-|  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for  |
-|  the specific language governing permissions and limitations under the License.                                     |
-\*-------------------------------------------------------------------------------------------------------------------*/
-
+},{"./routes.jsx":240,"./views/404.jsx":241,"./views/account.jsx":242,"./views/home.jsx":243,"./views/layout.jsx":244,"react-engine/lib/client":56}],240:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -42472,34 +42442,25 @@ var ReactRouter = require('react-router');
 var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
+var Redirect = ReactRouter.Redirect;
 
 var Layout = require('./views/layout.jsx');
 var Account = require('./views/account.jsx');
+var Home = require('./views/home.jsx');
+var Error404 = require('./views/404.jsx');
 
 var routes = module.exports = (
-  React.createElement(Router, null, 
-    React.createElement(Route, {path: "/", component: Layout}, 
-      React.createElement(IndexRoute, {component: Account})
-    )
-  )
+	React.createElement(Router, null, 
+		React.createElement(Route, {path: "/", component: Layout}, 
+  			React.createElement(IndexRoute, {component: Home}), 
+  			React.createElement(Route, {path: "/account", component: Account}), 
+  			React.createElement(Redirect, {from: "/home", to: "/"}), 
+  			React.createElement(Route, {path: "*", component: Error404})
+		)
+	)
 );
 
-},{"./views/account.jsx":242,"./views/layout.jsx":243,"react":236,"react-router":87}],241:[function(require,module,exports){
-/*-------------------------------------------------------------------------------------------------------------------*\
-|  Copyright (C) 2015 PayPal                                                                                          |
-|                                                                                                                     |
-|  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance     |
-|  with the License.                                                                                                  |
-|                                                                                                                     |
-|  You may obtain a copy of the License at                                                                            |
-|                                                                                                                     |
-|       http://www.apache.org/licenses/LICENSE-2.0                                                                    |
-|                                                                                                                     |
-|  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed   |
-|  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for  |
-|  the specific language governing permissions and limitations under the License.                                     |
-\*-------------------------------------------------------------------------------------------------------------------*/
-
+},{"./views/404.jsx":241,"./views/account.jsx":242,"./views/home.jsx":243,"./views/layout.jsx":244,"react":236,"react-router":87}],241:[function(require,module,exports){
 'use strict';
 
 var Layout = require('./layout.jsx');
@@ -42518,22 +42479,7 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"./layout.jsx":243,"react":236}],242:[function(require,module,exports){
-/*-------------------------------------------------------------------------------------------------------------------*\
-|  Copyright (C) 2015 PayPal                                                                                          |
-|                                                                                                                     |
-|  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance     |
-|  with the License.                                                                                                  |
-|                                                                                                                     |
-|  You may obtain a copy of the License at                                                                            |
-|                                                                                                                     |
-|       http://www.apache.org/licenses/LICENSE-2.0                                                                    |
-|                                                                                                                     |
-|  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed   |
-|  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for  |
-|  the specific language governing permissions and limitations under the License.                                     |
-\*-------------------------------------------------------------------------------------------------------------------*/
-
+},{"./layout.jsx":244,"react":236}],242:[function(require,module,exports){
 'use strict';
 
 var React = require('react');
@@ -42555,38 +42501,48 @@ module.exports = React.createClass({
 });
 
 },{"react":236}],243:[function(require,module,exports){
-/*-------------------------------------------------------------------------------------------------------------------*\
- |  Copyright (C) 2015 PayPal                                                                                          |
- |                                                                                                                     |
- |  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance     |
- |  with the License.                                                                                                  |
- |                                                                                                                     |
- |  You may obtain a copy of the License at                                                                            |
- |                                                                                                                     |
- |       http://www.apache.org/licenses/LICENSE-2.0                                                                    |
- |                                                                                                                     |
- |  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed   |
- |  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License for  |
- |  the specific language governing permissions and limitations under the License.                                     |
- \*-------------------------------------------------------------------------------------------------------------------*/
-
 'use strict';
 
 var React = require('react');
 
 module.exports = React.createClass({displayName: "exports",
-
   render: function render() {
 
+    return (
+      React.createElement("div", {className: "home_Image"})
+    );
+  }
+});
+},{"react":236}],244:[function(require,module,exports){
+'use strict';
+
+var React = require('react');
+var ReactRouter = require('react-router');
+var Link = ReactRouter.Link;
+var IndexLink = ReactRouter.IndexLink;
+
+module.exports = React.createClass({displayName: "exports",
+  render: function render() {
     return (
       React.createElement("html", null, 
         React.createElement("head", null, 
           React.createElement("meta", {charSet: "utf-8"}), 
+          React.createElement("link", {href: "https://fonts.googleapis.com/css?family=Lobster", rel: "stylesheet", type: "text/css"}), 
+          React.createElement("link", {rel: "stylesheet", href: "/resources/style.css"}), 
           React.createElement("title", null, 
             this.props.title
           )
         ), 
         React.createElement("body", null, 
+          React.createElement("div", {className: "header_Bar"}, 
+            React.createElement("div", {className: "header_Logo"}, "Fuzzion"), 
+            React.createElement("div", {className: "header_Nav"}, 
+              React.createElement(Link, {className: "header_NavSelect", activeClassName: "header_NavActive", to: "/account"}, "Account"), 
+              React.createElement("div", {className: "header_NavSpace"}, " | "), 
+              React.createElement(IndexLink, {className: "header_NavSelect", activeClassName: "header_NavActive", to: "/"}, "Home")
+            )
+          ), 
+
           this.props.children
         ), 
         React.createElement("script", {src: "/bundle.js"})
@@ -42595,4 +42551,4 @@ module.exports = React.createClass({displayName: "exports",
   }
 });
 
-},{"react":236}]},{},[239]);
+},{"react":236,"react-router":87}]},{},[239]);
