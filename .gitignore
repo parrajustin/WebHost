@@ -42,3 +42,6 @@ key.pem
 cert.pem
 
 server.p12
+
+# ignore bundle.js
+/public/bundle.js
