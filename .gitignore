@@ -45,3 +45,5 @@ server.p12
 
 # ignore bundle.js
 /public/bundle.js
+public/bundle.js
+bundle.js
