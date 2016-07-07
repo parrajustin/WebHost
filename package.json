@@ -82,7 +82,7 @@
     "elliptic": "^6.3.1",
     "encodeurl": "^1.0.1",
     "encoding": "^0.1.12",
-    "envify": "^^3.4.1",
+    "envify": "^3.4.1",
     "escape-html": "^1.0.3",
     "esprima-fb": "^15001.1.0-dev-harmony-fb",
     "etag": "^1.7.0",
