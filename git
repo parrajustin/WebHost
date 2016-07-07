@@ -15,7 +15,7 @@ elif [ "$1" = "dev" ]; then
 	node index.js;
 elif [ "$1" = "start" ]; then
 	npm install;
-	forever start --uid "production" -d --append --killSignal=SIGTERM -c "npm start" ./;
+	forever start --uid "production" -d --append -c "npm start" ./;
 elif [ "$1" = "stop" ]; then
 	npm install;
 	forever stop production;
