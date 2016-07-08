@@ -112,8 +112,8 @@ app.use(compression());
 
 
 // ================ EXPRESS ROUTES SETUP ================
-app.get('*/api/comment', function(req, res) {
-  res.send('[{id:1,text:"This is a test"},{id:2,text:"test2"}]');
+app.get('*/api/msg', function(req, res) {
+  res.send(store.getItem('chat-num'));
 });
 
 app.get('*/resources/:fileName', function(req, res) {
