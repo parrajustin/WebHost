@@ -47,3 +47,7 @@ server.p12
 /public/bundle.js
 public/bundle.js
 bundle.js
+
+# ignore storage
+/storage/*
+storage/*

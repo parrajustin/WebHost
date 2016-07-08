@@ -10,6 +10,7 @@ var Redirect = ReactRouter.Redirect;
 var Layout = require('./views/layout.jsx');
 var Account = require('./views/account.jsx');
 var Home = require('./views/home.jsx');
+var Chat = require('./views/chat.jsx');
 var Error404 = require('./views/404.jsx');
 
 var routes = module.exports = (
@@ -17,6 +18,7 @@ var routes = module.exports = (
 		<Route path='/' component={Layout}>
   			<IndexRoute component={Home} />
   			<Route path='/account' component={Account} />
+  			<Route path='/chat' component={Chat} />
   			<Redirect from='/home' to='/' />
   			<Route path='*' component={Error404}/>
 		</Route>

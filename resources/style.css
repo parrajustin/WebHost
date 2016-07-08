@@ -10,28 +10,50 @@ html, body {
   -webkit-tap-highlight-color: transparent;
   font-size: 87.5%;
   line-height: 1.5em;
-  overflow: hidden;
+  overflow-x: hidden;
 }
-
 body {
     background-image: url("background.png");
 }
-
-.header_Bar {
-	position: absolute;
-	top: 0px;
-	left: 0px;
-
-	height: 38px;
-	width: 100%;
-
-	padding: 5px;
-	border-bottom: 2px solid #B4B4B4;
-
-    background-color: rgba(0,0,0,0);
-    border-color: rgba(105,105,105,0);  
+body::-webkit-scrollbar {
+    width: 1em;
+}
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+}
+body::-webkit-scrollbar-thumb {
+  background-color: darkred;
+  outline: 1px solid slategrey;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+.header_Container {
+	height: auto;
+	width: auto;
+
+    background-image: url("header.png");
+}
+.header_Bar {
+	height: 48px;
+	width: 100%;
+	max-width: 960px;
+
+	padding: 5px;
+	margin: auto;
+
+    background-color: rgba(0,0,0,0);
+    z-index: 5;
+}
 .header_Logo {
 	height: auto;
 	width: 50px;
@@ -54,11 +76,10 @@ body {
 	-ms-user-select: none;       /* Internet Explorer/Edge */
 	user-select: none;
 }
-
 .header_Nav {
 	height: auto;
 	width: auto;
-	margin-right: 20px;
+	margin-right: 10px;
 
 	float: right;
 	position: relative;
@@ -76,19 +97,16 @@ body {
 	-ms-user-select: none;       /* Internet Explorer/Edge */
 	user-select: none;
 }
-
 .header_NavSelect {
 	float: right;
 	color: white;
 	text-decoration: none;
 }
-
 .header_NavSpace {
 	float: right;
 	margin-right: 5px;
 	margin-left: 5px;
 }
-
 .header_NavActive {
 	float: right;
 	color: RED;
@@ -100,11 +118,65 @@ body {
 
 
 
+
+
+
+
+
+
+
+
 .home_Image {
-    background-image: url("mountains.png");
     width: 100%;
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    height: calc(100vh - 58px);
+}
+.home_Container {
+	width: 100%;
+	height: auto;
+}
+.home_Body {
+	width: 100%;
+	max-width: 960px;
+	height: auto;
+	margin: auto;
+	margin-top: 50px;
+}
+
+
+
+
+
+
+
+.chat_Container {
+	width: 100%;
+	height: auto;
+}
+.chat_Body {
+	width: 100%;
+	max-width: 960px;
+    height: calc(100vh - 78px);
+    min-height: 200px;
+
+	margin: auto;
+	margin-top: 10px;
+	border-radius: 25px;
+
+    background-image: url("chatBackground.png");
+}
+.chat_UpperSection {
+	width: 100%;
+	height: calc(100vh - 130px);
+	min-height: 200px;
+
+	padding-top: 18px;
+}
+.chat_LowerSection {
+	width: 100%;
+	height: 40px;
+	min-height: 40px;
+}
+.chat_Msg {
+	width: 100%;
+	height: auto;
 }
