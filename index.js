@@ -4,10 +4,11 @@
 require('node-jsx').install();
 
 var path        = require('path')
-  , store     = require('node-persist')
+  , store       = require('node-persist')
   , express     = require('express')
   , renderer    = require('react-engine')
   , compression = require('compression')
+  , bodyParser  = require('body-parser')
   , app         = express();
 
 // create the view engine with `react-engine`
@@ -94,6 +95,9 @@ app.use(express.static(__dirname + '/public'));
 //set compression
 app.use(compression());
 
+//parser for requrests
+app.use(bodyParser.json());
+
 
 
 
@@ -113,15 +117,22 @@ app.use(compression());
 
 // ================ EXPRESS ROUTES SETUP ================
 app.get('*/api/msg', function(req, res) {
-  var msgs = '{';
-  for( var i = 0; i < Number(store.getItem('char-num')); i++ ) {
+  var msgs = '[';
+  var limit = Number(store.getItem('chat-num'));
+  for( var i = 0; i < limit; i++ ) {
     if( i != 0 ) {
       msgs += ', ';
     }
-    msgs += i + ': ' + store.getItem('char-'+i);
+    msgs += JSON.stringify(store.getItem('chat-'+i));
   }
-  msgs+= '}';
+  msgs+= ']';
   res.send(msgs);
+});
+
+app.post('*/api/msg', function(req, res) {
+  var num = Number(store.getItem('chat-num'));
+  store.setItem('chat-num',(num+1));
+  store.setItem('chat-'+num, { id: num, author: req.body["author"], msg: req.body["msg"] });
 });
 
 app.get('*/resources/:fileName', function(req, res) {
@@ -204,5 +215,7 @@ var server = app.listen(80, function() {
   var host = server.address().address;
   var port = server.address().port;
 
-  console.log('Example app listening at http://%s:%s', host, port);
+  console.log('app listening at http://%s:%s', host, port);
+  console.log('');
+  console.log('');
 });
