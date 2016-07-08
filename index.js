@@ -114,7 +114,7 @@ app.use(compression());
 // ================ EXPRESS ROUTES SETUP ================
 app.get('*/api/msg', function(req, res) {
   var msgs = '{';
-  for( var i = 0; i < store.getItem('char-num'); i++ ) {
+  for( var i = 0; i < Number(store.getItem('char-num')); i++ ) {
     if( i != 0 ) {
       msgs += ', ';
     }
