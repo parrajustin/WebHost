@@ -5,9 +5,9 @@
   "author": "Justin R. Parra <parra.justin.main@gmail.com>",
   "main": "index.js",
   "scripts": {
-    "test": "SET NODE_ENV=development && npm run browserifyT && node index.js",
+    "test": "NODE_ENV=development && npm run browserifyT && node index.js",
     "browserifyT": "browserify -t [ envify purge --NODE_ENV development ] -t reactify -t require-globify public/index.js -t require-globify public/zepto.js -o public/bundle.js",
-    "start": "npm run browserify && NODE_ENV=production node index.js",
+    "start": "NODE_ENV=development && npm run browserify && NODE_ENV=production node index.js",
     "browserify": "browserify -t [ envify purge --NODE_ENV production ] -g [ uglifyify -x .js -x .jsx] -t reactify -t require-globify public/index.js -t require-globify public/zepto.js -o public/bundle.js"
   },
   "dependencies": {
