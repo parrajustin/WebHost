@@ -108,18 +108,20 @@ var MsgForm = React.createClass({
     return (
       <form className="chat_LowerSection" onSubmit={this.handleSubmit}>
         <input
+          className="chat_Input"
           type="text"
           placeholder="Your name"
           value={this.state.author}
           onChange={this.handleAuthorChange}
         />
         <input
+          className="chat_Input"
           type="text"
           placeholder="Say something..."
           value={this.state.text}
           onChange={this.handleTextChange}
         />
-        <input type="submit" value="Post" />
+        <input className="chat_Post" type="submit" value="Post" />
       </form>
     );
   }

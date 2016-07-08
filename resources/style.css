@@ -155,7 +155,7 @@ body::-webkit-scrollbar-thumb {
 .chat_Body {
 	width: 100%;
 	max-width: 960px;
-    height: calc(100vh - 78px);
+    height: auto;
     min-height: 200px;
 
 	margin: auto;
@@ -171,6 +171,7 @@ body::-webkit-scrollbar-thumb {
 
 	padding-top: 18px;
 	overflow-y: scroll;
+	border-bottom: 2px solid red;
 }
 .chat_UpperSection::-webkit-scrollbar {
     width: 1em;
@@ -183,9 +184,11 @@ body::-webkit-scrollbar-thumb {
   outline: 1px solid slategrey;
 }
 .chat_LowerSection {
-	width: 100%;
+	width: calc(100% - 50px);
 	height: 40px;
 	min-height: 40px;
+	padding-left: 25px;
+	padding-right: 25px;
 }
 .chat_Msg {
 	width: 100%;
@@ -193,4 +196,20 @@ body::-webkit-scrollbar-thumb {
 
 	border-bottom: 2px solid rgb(0,0,0);
 	color: black;
+}
+.chat_Input {
+	border-width: 0px;
+	height: 100%;
+	padding: 0px;
+	background-color: rgba(0,0,0,0);
+	color: red;
+	width: 45%;
+}
+.chat_Post {
+    color: white;
+    background-color: red;
+    border: 0px;
+    border-radius: 3px;
+    height: 100%;
+    width: 10%;
 }
