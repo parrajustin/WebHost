@@ -113,7 +113,15 @@ app.use(compression());
 
 // ================ EXPRESS ROUTES SETUP ================
 app.get('*/api/msg', function(req, res) {
-  res.send(store.getItem('chat-num'));
+  var msgs = '{';
+  for( var i = 0; i < store.getItem('char-num'); i++ ) {
+    if( i != 0 ) {
+      msgs += ', ';
+    }
+    msgs += i + ': ' + store.getItem('char-'+i);
+  }
+  msgs+= '}';
+  res.send(msgs);
 });
 
 app.get('*/resources/:fileName', function(req, res) {
