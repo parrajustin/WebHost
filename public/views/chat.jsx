@@ -18,6 +18,7 @@ var Msg = React.createClass({
 
 var ChatBody = React.createClass({
   fetchMessages: function() {
+    console.log("launching Ajax Call");
     $.ajax({
       url: this.props.url,
       dataType: 'json',

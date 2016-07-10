@@ -19,7 +19,7 @@ var engine = renderer.server.create({
 
 
 console.log('');
-console.log('SERVER RUNNING IN: ' + process.env.NODE_ENV);
+console.log('====== SERVER RUNNING IN: ' + process.env.NODE_ENV + ' ======');
 console.log('');
 console.log('');
 
@@ -36,32 +36,64 @@ console.log('');
 
 
 // ================ JSON STORAGE SETUP ================
-store.initSync({
-  dir: '../../../../storage/',
-  stringify: JSON.stringify,
-  parse: JSON.parse,
-  encoding: 'utf8',
-  logging: true,
-  continuous: true,
-  interval: false,
-  ttl: false, // ttl* [NEW], can be true for 24h default or a number in MILLISECONDS
-});
 
-var data = {
-  id: '0',
-  author: 'test',
-  msg: 'this is the msg'
-};
+if (process.env.NODE_ENV === "development ") {
+  store.initSync({
+    dir: '../../../../storage/',
+    stringify: JSON.stringify,
+    parse: JSON.parse,
+    encoding: 'utf8',
+    logging: true,
+    continuous: true,
+    interval: false,
+    ttl: false, // ttl* [NEW], can be true for 24h default or a number in MILLISECONDS
+  });
 
-var data2 = {
-  id: '1',
-  author: 'other',
-  msg: 'this is the other msg'
-};
+  console.log('');
+  console.log('');
+  console.log('====== STORE DEBUG TEST ======');
+  var data = {
+    id: '0',
+    author: 'test',
+    msg: 'this is the msg'
+  };
 
-store.setItem('chat-0', data);
-store.setItem('chat-1', data2);
-store.setItem('chat-num', '2');
+  var data2 = {
+    id: '1',
+    author: 'other',
+    msg: 'this is the other msg'
+  };
+
+  var array = [];
+  array.push(data);
+  array.push(data2);
+
+  store.setItem('chat', array);
+  console.log(JSON.stringify(array));
+  console.log(store.getItem('chat').length);
+
+  var temp = store.getItem('chat');
+  temp.push(data);
+  store.setItem('chat',temp);
+  console.log('');
+  console.log(JSON.stringify(array));
+  console.log(store.getItem('chat').length);
+  console.log('');
+} else {
+  store.initSync({
+    dir: '../../../../storage/',
+    stringify: JSON.stringify,
+    parse: JSON.parse,
+    encoding: 'utf8',
+    logging: false,
+    continuous: true,
+    interval: false,
+    ttl: false, // ttl* [NEW], can be true for 24h default or a number in MILLISECONDS
+  });
+
+  var array = [];
+  store.setItem('chat', array);
+}
 
 
 
@@ -117,22 +149,25 @@ app.use(bodyParser.json());
 
 // ================ EXPRESS ROUTES SETUP ================
 app.get('*/api/msg', function(req, res) {
-  var msgs = '[';
-  var limit = Number(store.getItem('chat-num'));
-  for( var i = 0; i < limit; i++ ) {
-    if( i != 0 ) {
-      msgs += ', ';
-    }
-    msgs += JSON.stringify(store.getItem('chat-'+i));
-  }
-  msgs+= ']';
-  res.send(msgs);
+  // var msgs = '[';
+  // var limit = Number(store.getItem('chat-num'));
+  // for( var i = 0; i < limit; i++ ) {
+  //   if( i != 0 ) {
+  //     msgs += ', ';
+  //   }
+  //   msgs += JSON.stringify(store.getItem('chat-'+i));
+  // }
+  // msgs+= ']';
+  res.json(store.getItem('chat'));
 });
 
 app.post('*/api/msg', function(req, res) {
-  var num = Number(store.getItem('chat-num'));
-  store.setItem('chat-num',(num+1));
-  store.setItem('chat-'+num, { id: num, author: req.body["author"], msg: req.body["msg"] });
+  // var num = Number(store.getItem('chat-num'));
+  // store.setItem('chat-num',(num+1));
+  // store.setItem('chat-'+num, { id: num, author: req.body["author"], msg: req.body["msg"] });
+  var temp = store.getItem('chat');
+  temp.push({ id: temp.length, author: req.body["author"], msg: req.body["msg"] });
+  store.setItem('chat', temp);
 });
 
 app.get('*/resources/:fileName', function(req, res) {
@@ -154,10 +189,14 @@ app.get('*/resources/:fileName', function(req, res) {
 });
 
 app.get('*', function(req, res) {
-  res.render(req.url, {
-    title: 'Fuzzion Media Group',
-    name: 'home'
-  });
+  if(req.headers.host == 'api.localhost') {
+    console.log('IT WORKED')
+  } else {
+    res.render(req.url, {
+      title: 'Fuzzion Media Group',
+      name: 'home'
+    });
+  }
 });
 
 // 404 template
