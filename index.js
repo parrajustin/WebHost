@@ -69,16 +69,16 @@ if (process.env.NODE_ENV === "development ") {
   array.push(data2);
 
   store.setItem('chat', array);
-  console.log(JSON.stringify(array));
-  console.log(store.getItem('chat').length);
+  // console.log(JSON.stringify(array));
+  // console.log(store.getItem('chat').length);
 
-  var temp = store.getItem('chat');
-  temp.push(data);
-  store.setItem('chat',temp);
-  console.log('');
-  console.log(JSON.stringify(array));
-  console.log(store.getItem('chat').length);
-  console.log('');
+  // var temp = store.getItem('chat');
+  // temp.push(data);
+  // store.setItem('chat',temp);
+  // console.log('');
+  // console.log(JSON.stringify(array));
+  // console.log(store.getItem('chat').length);
+  // console.log('');
 } else {
   store.initSync({
     dir: '../../../../storage/',

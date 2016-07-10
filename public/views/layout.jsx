@@ -16,7 +16,7 @@ module.exports = React.createClass({
         classNavSelect: 'header_NavSelect',
         classNavSelectActive: 'header_NavActive',
         classHSpacers: 'header_Nav_Hidden',
-
+        classIcon: 'header_Empty',
         classHeaderBar: 'header_Bar',
         classHeaderLogo: 'header_Logo'
       };
@@ -60,7 +60,7 @@ module.exports = React.createClass({
         classNavSelect: 'header_NavSelect_Mobile',
         classNavSelectActive: 'header_NavActive_Mobile',
         classHSpacers: 'header_NavSpaceH',
-
+        classIcon: className('header_Nav_Icon', 'icon'),
         classHeaderBar: 'header_Bar_Mobile',
         classHeaderLogo: 'header_Logo_Mobile'
       });
@@ -84,7 +84,7 @@ module.exports = React.createClass({
             <div className={this.state.classHeaderBar}>
               <div className={this.state.classHeaderLogo}>Fuzzion</div>
               <div className={this.state.classNav}>
-                <button onClick={this.dropDown} className={this.state.classNavBut}><i className="icon">&#xf0c9;</i></button>
+                <button onClick={this.dropDown} className={this.state.classNavBut}><i className={this.state.classIcon}>&#xf0c9;</i></button>
                 <div id='header_Drop' className={this.state.classDropDown}>
                   <Link onClick={this.deadDrop} className={this.state.classNavSelect} activeClassName={this.state.classNavSelectActive} to='/chat'>Chat</Link>
                   <div className={this.state.classVSpacers}> | </div>

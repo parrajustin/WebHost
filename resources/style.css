@@ -166,6 +166,7 @@ body::-webkit-scrollbar-thumb {
 	background-color: #f9f9f9;
 	min-width: 160px;
 	box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+	padding: 22px 10px;
 }
 .header_Nav_Hidden {
 	display: none;
@@ -174,6 +175,8 @@ body::-webkit-scrollbar-thumb {
 .header_NavSelect_Mobile {
 	color: black;
 	text-decoration: none;
+
+	text-align: center;
 
 	height: 25px;
 	display: block;
@@ -225,9 +228,12 @@ body::-webkit-scrollbar-thumb {
 	height: 3px;
 	width: 80%;
 	margin: auto;
-	margin-top: 15px;
-	margin-bottom: 15px;
+	margin-top: 20px;
+	margin-bottom: 20px;
 	background-color: black;
+}
+.header_Nav_Icon {
+	font-size: 64px !important;
 }
 
 
@@ -303,7 +309,7 @@ body::-webkit-scrollbar-thumb {
 }
 .chat_LowerSection {
 	width: calc(100% - 50px);
-	height: 40px;
+	height: 60px;
 	min-height: 40px;
 	padding-left: 25px;
 	padding-right: 25px;
@@ -321,7 +327,10 @@ body::-webkit-scrollbar-thumb {
 	padding: 0px;
 	background-color: rgba(0,0,0,0);
 	color: red;
-	width: 45%;
+	width: 90%;
+}
+.chat_Input_Hidden {
+	display: none;
 }
 .chat_Post {
     color: white;
@@ -329,8 +338,17 @@ body::-webkit-scrollbar-thumb {
     border: 0px;
     border-radius: 3px;
     height: 100%;
-    width: 10%;
+    width: calc(10% - 7px);
+    float: right;
+    padding-left: 7px;
 }
+.chat_Post_Icon {
+	margin: auto;
+	font-size: 54px !important;
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+} 
 
 
 
