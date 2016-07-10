@@ -277,6 +277,8 @@ body::-webkit-scrollbar-thumb {
 	height: auto;
 }
 .chat_Body {
+	font-size: 1.7em;
+
 	width: 100%;
 	max-width: 960px;
     height: auto;
@@ -290,12 +292,17 @@ body::-webkit-scrollbar-thumb {
 }
 .chat_UpperSection {
 	width: 100%;
-	height: calc(100vh - 130px);
 	min-height: 200px;
 
 	padding-top: 18px;
 	overflow-y: scroll;
 	border-bottom: 2px solid red;
+}
+.chat_UpperSection_Height {
+	height: calc(100vh - 182px);
+}
+.chat_UpperSection_Height_Mobile {
+	height: calc(100vh - 282px);
 }
 .chat_UpperSection::-webkit-scrollbar {
     width: 1em;
@@ -304,13 +311,18 @@ body::-webkit-scrollbar-thumb {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 }
 .chat_UpperSection::-webkit-scrollbar-thumb {
-  background-color: darkred;
-  outline: 1px solid slategrey;
+	background-color: darkred;
+	outline: 1px solid slategrey;
 }
 .chat_LowerSection {
 	width: calc(100% - 50px);
 	height: 60px;
-	min-height: 40px;
+	padding-left: 25px;
+	padding-right: 25px;
+}
+.chat_LowerSection_Mobile {
+	width: calc(100% - 50px);
+	height: 110px;
 	padding-left: 25px;
 	padding-right: 25px;
 }
@@ -328,6 +340,8 @@ body::-webkit-scrollbar-thumb {
 	background-color: rgba(0,0,0,0);
 	color: red;
 	width: 90%;
+
+	font-size: 1.7em;
 }
 .chat_Input_Hidden {
 	display: none;

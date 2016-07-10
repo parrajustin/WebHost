@@ -59,6 +59,19 @@ var ChatBody = React.createClass({
 });
 
 var Messages = React.createClass({
+  getInitialState: function() {
+    return {
+      classUpperSection: className('chat_UpperSection', 'chat_UpperSection_Height')
+    };
+  },
+  componentDidMount: function () {
+    if(!!$.os.phone || !!$.os.tablet) {
+      this.setState({
+        classUpperSection: className('chat_UpperSection', 'chat_UpperSection_Height_Mobile')
+      });
+    }
+    this.forceUpdate();
+  },
   render: function() {
     var seperateMsgs = this.props.data.map(function(msgData) {
       return (
@@ -66,7 +79,7 @@ var Messages = React.createClass({
       );
     });
     return (
-      <div className="chat_UpperSection">
+      <div className={this.state.classUpperSection}>
         {seperateMsgs}
       </div>
     );
@@ -92,7 +105,8 @@ var MsgForm = React.createClass({
       author: '', 
       text: '',
       classChatAuthor: 'chat_Input',
-      classChatInput: className('chat_Input', 'chat_Input_Hidden')
+      classChatInput: className('chat_Input', 'chat_Input_Hidden'),
+      classLowerSection: 'chat_LowerSection'
     };
   },
   handleAuthorChange: function(e) {
@@ -102,6 +116,14 @@ var MsgForm = React.createClass({
   },
   handleTextChange: function(e) {
     this.setState({text: e.target.value});
+  },
+  componentDidMount: function () {
+    if(!!$.os.phone || !!$.os.tablet) {
+      this.setState({
+        classLowerSection: 'chat_LowerSection_Mobile'
+      });
+    }
+    this.forceUpdate();
   },
   handleSubmit: function(e) {
     if( this.state.classChatAuthor === 'chat_Input' ) {
@@ -140,7 +162,7 @@ var MsgForm = React.createClass({
   render: function() {
     var iconClass = className('chat_Post_Icon', 'icon');
     return (
-      <form className="chat_LowerSection">
+      <form className={this.state.classLowerSection}>
         <input
           className={this.state.classChatAuthor}
           type="text"
