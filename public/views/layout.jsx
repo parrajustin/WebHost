@@ -18,11 +18,16 @@ module.exports = React.createClass({
         classHSpacers: 'header_Nav_Hidden',
         classIcon: 'header_Empty',
         classHeaderBar: 'header_Bar',
-        classHeaderLogo: 'header_Logo'
+        classHeaderLogo: 'header_Logo',
+
+        ncStyle: { top: '82px' },
+        ncText: 'text',
+
+        classNotificationBody: 'notification_Body'
       };
   },
   classNavBut: function () {
-    if( !!$.os.phone || !!$.os.phone ) {
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
       var btnClass = className({
         'header_Nav_Button': true, 
         'header_Nav_ButtonHighlight': this.state.isPressed || this.state.isHovered
@@ -43,7 +48,7 @@ module.exports = React.createClass({
     }
   },
   deadDrop: function () {
-    if( !!$.os.phone || !!$.os.phone ) {
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
       this.setState({
         classDropDown: className('header_Nav_Drop', 'header_Nav_Hidden')
       });
@@ -51,7 +56,7 @@ module.exports = React.createClass({
     }
   },
   componentDidMount: function () {
-    if(!!$.os.phone || !!$.os.tablet) {
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
       this.setState({
         classNav: 'header_Nav_Mobile',
         classNavBut: className({'header_Nav_Button': true, 'header_Nav_ButtonHighlight': this.state.isPressed || this.state.isHovered}),
@@ -62,14 +67,48 @@ module.exports = React.createClass({
         classHSpacers: 'header_NavSpaceH',
         classIcon: className('header_Nav_Icon', 'icon'),
         classHeaderBar: 'header_Bar_Mobile',
-        classHeaderLogo: 'header_Logo_Mobile'
+        classHeaderLogo: 'header_Logo_Mobile',
+
+        ncStyle: { top: '132px' }
       });
     }
+
+    $(document).on('scroll', 'notifId', this.handleScroll );
+
     this.forceUpdate();
+  },
+  handleScroll: function () {
+    if( this.state.ncStyle.display != undefined ) {
+      return;
+    }
+
+    var topT;
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) { topT = 132; } else { topT = 82; }
+    topT = topT + $('#headId').position().top;
+    if( topT <= 0 ) {
+      topT = 0; 
+    }
+
+    this.setState({
+      ncStyle: { top: topT }
+    });
+  },
+  notifClick: function () {
+    var topTemp = this.state.ncStyle.top;
+    this.setState({
+      ncStyle: { top: topTemp, display: 'none' }
+    });
+  },
+  notification: function (text) {
+    this.setState({
+      ncStyle: { top: this.state.ncStyle.top },
+      ncText: text
+    });
+    this.handleScroll();
   },
   render: function render() {
     return (
-      <html>
+      <html onScroll={this.handleScroll}>
         <head>
           <meta charSet='utf-8' />
           <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'/>
@@ -79,8 +118,8 @@ module.exports = React.createClass({
             {this.props.title}
           </title>
         </head>
-        <body>
-          <div className='header_Container'>
+        <body onScroll={this.handleScroll}>
+          <div id="headId" className='header_Container'>
             <div className={this.state.classHeaderBar}>
               <div className={this.state.classHeaderLogo}>Fuzzion</div>
               <div className={this.state.classNav}>
@@ -95,6 +134,11 @@ module.exports = React.createClass({
                   <IndexLink onClick={this.deadDrop} className={this.state.classNavSelect} activeClassName={this.state.classNavSelectActive} to='/'>Home</IndexLink>
                 </div>
               </div>
+            </div>
+          </div>
+          <div id="notifId" onClick={this.notifClick} style={this.state.ncStyle} className='notification_Container'>
+            <div className={this.state.classNotificationBody}>
+              {this.state.ncText}
             </div>
           </div>
 

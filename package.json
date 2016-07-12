@@ -6,9 +6,9 @@
   "main": "index.js",
   "scripts": {
     "test": "SET NODE_ENV=development && npm run browserifyT && node index.js",
-    "browserifyT": "browserify -t [ envify purge ] -t reactify -t require-globify public/index.js -t require-globify public/zepto.js -o public/bundle.js",
+    "browserifyT": "browserify -t [ envify purge ] -t reactify -t require-globify public/index.js -t require-globify public/jquery2.js -o public/bundle.js",
     "start": "NODE_ENV=production && npm run browserify && node index.js",
-    "browserify": "browserify -t [ envify purge --NODE_ENV production ] -g [ uglifyify -x .js -x .jsx] -t reactify -t require-globify public/index.js -t require-globify public/zepto.js -o public/bundle.js"
+    "browserify": "browserify -t [ envify purge --NODE_ENV production ] -g [ uglifyify -x .js -x .jsx] -t reactify -t require-globify public/index.js -t require-globify public/jquery2.js -o public/bundle.js"
   },
   "dependencies": {
     "JSONStream": "^1.1.3",
