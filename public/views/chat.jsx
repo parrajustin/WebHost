@@ -90,9 +90,17 @@ var Messages = React.createClass({
 });
 
 var Msg = React.createClass({
+  componentDidMount: function () {
+    $(function() {
+      $("loadingId" + this.props.key).mousetip('.tip');
+    });
+  },
   render: function() {
+    var icons = className('icon', 'animate-spin', 'chat_Msg_Icon');
+    var idHold = "loadingId" + this.props.key;
     return (
       <div className="chat_Msg">
+        <i id={idHold} className={icons}>&#xf123; <span className="tip">Sending Message...</span></i>
         <h2>
           {this.props.author}
         </h2>
@@ -175,7 +183,7 @@ var MsgForm = React.createClass({
         author: this.state.author.trim(),
         msg: this.state.text.trim()
       }
-      $.ajax({
+      var xhrT = $.ajax({
         url: this.props.url,
         dataType: 'json',
         contentType: 'application/json',
@@ -187,6 +195,7 @@ var MsgForm = React.createClass({
       });
       this.props.onMsgSubmit(dataHold);
       this.setState( {
+        xhr: xhrT,
         text: ''
       })
     }
@@ -212,6 +221,11 @@ var MsgForm = React.createClass({
         <div className={this.state.classChatPost} onClick={this.handleSubmit}><i className={iconClass} >&#xf124;</i></div>
       </form>
     );
+  },
+  componentWillUnmount: function () {
+    if( this.state.xhr != undefined ) {
+      this.state.xhr.abort()
+    }
   }
 });
 

@@ -78,7 +78,7 @@ module.exports = React.createClass({
     this.forceUpdate();
   },
   handleScroll: function () {
-    if( this.state.ncStyle.display != undefined ) {
+    if( this.state.ncStyle.display == undefined ) {
       return;
     }
 
@@ -94,17 +94,22 @@ module.exports = React.createClass({
     });
   },
   notifClick: function () {
+    window.clearTimeout(this.state.notifDelayId);
     var topTemp = this.state.ncStyle.top;
     this.setState({
       ncStyle: { top: topTemp, display: 'none' }
     });
   },
   notification: function (text) {
+    window.clearTimeout(this.state.notifDelayId);
     this.setState({
       ncStyle: { top: this.state.ncStyle.top },
       ncText: text
     });
     this.handleScroll();
+    this.setState({
+      notifDelayId: window.setTimeout(this.notifClick, 2000)
+    })
   },
   render: function render() {
     return (
