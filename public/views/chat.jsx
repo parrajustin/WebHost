@@ -22,6 +22,7 @@ var ChatBody = React.createClass({
         this.setState({data: data});
       }.bind(this),
       error: function(xhr, status, err) {
+        this.props.notification("Failed to send message!");
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -223,7 +224,7 @@ module.exports = React.createClass({
   render: function render() {
     return (
       <div className='chat_Container'>
-        <ChatBody url='/api/msg' pollInterval={2000}/>
+        <ChatBody url='/api/msg' notification={this.props.notification} pollInterval={2000}/>
       </div>
     );
   }

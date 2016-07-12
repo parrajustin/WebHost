@@ -20,7 +20,7 @@ module.exports = React.createClass({
         classHeaderBar: 'header_Bar',
         classHeaderLogo: 'header_Logo',
 
-        ncStyle: { top: '82px' },
+        ncStyle: { top: '82px', display: 'none' },
         ncText: 'text',
 
         classNotificationBody: 'notification_Body'
@@ -69,7 +69,7 @@ module.exports = React.createClass({
         classHeaderBar: 'header_Bar_Mobile',
         classHeaderLogo: 'header_Logo_Mobile',
 
-        ncStyle: { top: '132px' }
+        ncStyle: { top: '132px', display: 'none' }
       });
     }
 
@@ -142,7 +142,7 @@ module.exports = React.createClass({
             </div>
           </div>
 
-          {this.props.children}
+          {React.cloneElement(this.props.children, { notification: this.notification})}
         </body>
       </html>
     );
