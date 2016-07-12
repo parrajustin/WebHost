@@ -255,6 +255,8 @@ body::-webkit-scrollbar-thumb {
 	position: fixed;
 	left: 0px;
 	background-color: red;
+
+	z-index: 5;
 }
 .notification_Body {
 	width: 100%;

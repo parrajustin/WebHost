@@ -30,7 +30,6 @@ var ChatBody = React.createClass({
   },
   handleMsgSubmit: function(comment) {
     var comments = this.state.data;
-    console.log(this.state.data.length + JSON.stringify(this.state.data));
     comment.id = Number(this.state.cNum);
     this.setState({
       cNum: (Number(this.state.cNum) - 1)
@@ -58,7 +57,7 @@ var ChatBody = React.createClass({
     if( this.state.xhr != undefined ) {
       this.state.xhr.abort()
     }
-  }
+  },
 });
 
 var Messages = React.createClass({
@@ -78,7 +77,7 @@ var Messages = React.createClass({
   render: function() {
     var seperateMsgs = this.props.data.map(function(msgData) {
       return (
-        <Msg author={msgData.author} actualMsg={msgData.msg} key={msgData.id} />
+        <Msg author={msgData.author} hash={msgData.hash} actualMsg={msgData.msg} key={msgData.id} />
       );
     });
     return (
@@ -90,14 +89,9 @@ var Messages = React.createClass({
 });
 
 var Msg = React.createClass({
-  componentDidMount: function () {
-    $(function() {
-      $("loadingId" + this.props.key).mousetip('.tip');
-    });
-  },
   render: function() {
     var icons = className('icon', 'animate-spin', 'chat_Msg_Icon');
-    var idHold = "loadingId" + this.props.key;
+    var idHold = "loadingId" + this.props.hash;
     return (
       <div className="chat_Msg">
         <i id={idHold} className={icons}>&#xf123; <span className="tip">Sending Message...</span></i>
@@ -143,18 +137,6 @@ var MsgForm = React.createClass({
     });
   },
   handleSubmit: function(e) {
-    //Handle changing colors
-    // try {
-    //   var temp;
-    //   for( temp in e.target) break; //will get the first object name
-    //   var temp = e.target[temp];  //will set that object to a variable
-    //   console.log("2"+temp._currentElement.type+"-");
-    //   console.log(temp._currentElement.type === 'div');
-    // } catch(err) {
-    //   console.log(err.message);
-    // }
-    // if( e.target.tagName == 'div' ) {
-    // }
     if( ( (this.state.classChatAuthor === 'chat_Input' && !(this.state.author.trim() === '')) || !(this.state.text.trim() === '') ) && 
       ( this.state.classChatPost == className('chat_Post', 'chat_PostRed') ) 
       ) {
@@ -179,10 +161,18 @@ var MsgForm = React.createClass({
       if( this.state.text.trim() === '' ) {
         return;
       }
+      var saltHold = $(document).salt(32, 'aA#');
       var dataHold = {
         author: this.state.author.trim(),
-        msg: this.state.text.trim()
-      }
+        msg: this.state.text.trim(),
+        salt: saltHold
+      };
+      var hashHold = JSON.stringify(dataHold).hashCode();
+      dataHold = {
+        author: dataHold.author,
+        msg: dataHold.msg,
+        hash: hashHold
+      };
       var xhrT = $.ajax({
         url: this.props.url,
         dataType: 'json',

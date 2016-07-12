@@ -55,13 +55,15 @@ if (process.env.NODE_ENV === "development ") {
   var data = {
     id: '0',
     author: 'test',
-    msg: 'this is the msg'
+    msg: 'this is the msg',
+    hash: '1233'
   };
 
   var data2 = {
     id: '1',
     author: 'other',
-    msg: 'this is the other msg'
+    msg: 'this is the other msg',
+    hash: '1234'
   };
 
   var array = [];
@@ -166,7 +168,7 @@ app.post('*/api/msg', function(req, res) {
   // store.setItem('chat-num',(num+1));
   // store.setItem('chat-'+num, { id: num, author: req.body["author"], msg: req.body["msg"] });
   var temp = store.getItem('chat');
-  temp.push({ id: temp.length, author: req.body["author"], msg: req.body["msg"] });
+  temp.push({ id: temp.length, author: req.body["author"], msg: req.body["msg"], hash: req.body["hash"] });
   store.setItem('chat', temp);
 });
 
