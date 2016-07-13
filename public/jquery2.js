@@ -7,37 +7,6 @@ if(x.isFunction(n))while(r=o[i++])"+"===r[0]?(r=r.slice(1)||"*",(e[r]=e[r]||[]).
 
 
 
-// Plugin: jQuery.mousetip
-// Source: github.com/nathco/jQuery.mousetip
-// Author: Nathan Rutzky
-// Update: 1.00
-   
-$.fn.mousetip = function(tip, x, y) {
-    
-    var $this = $(this);
-    
-    $this.hover(function() {
-        
-        $(tip, this).show();
-    
-    }, function() {
-    
-        $(tip, this).hide().removeAttr('style');
-    
-    }).mousemove(function(e) {
-        
-        var mouseX = e.pageX + (x || 10);
-        var mouseY = e.pageY + (y || 10);
-    
-        $(tip, this).show().css({
-            
-            top:mouseY, left:mouseX
-            
-        });
-    });
-};
-
-
 //HASH FUNCTION 
 String.prototype.hashCode = function() {
   var hash = 0, i, chr, len;

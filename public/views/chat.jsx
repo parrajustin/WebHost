@@ -12,7 +12,6 @@ var ChatBody = React.createClass({
     };
   },
   fetchMessages: function() {
-    // console.log("launching Ajax Call");
     var xhrTemp = $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -89,12 +88,21 @@ var Messages = React.createClass({
 });
 
 var Msg = React.createClass({
+  getInitialState: function () {
+      var idHold = "loadingId_" + this.props.hash;
+      return {
+        iconId: idHold
+      };
+  },
   render: function() {
     var icons = className('icon', 'animate-spin', 'chat_Msg_Icon');
-    var idHold = "loadingId" + this.props.hash;
+    var iconStyle = {display: 'none'};
+    if( Number(this.props.id) < 0 ) {
+      iconStyle = {};
+    }
     return (
       <div className="chat_Msg">
-        <i id={idHold} className={icons}>&#xf123; <span className="tip">Sending Message...</span></i>
+        <i id={this.state.iconId} style={iconStyle} className={icons}>&#xf123;</i>
         <h2>
           {this.props.author}
         </h2>
@@ -171,7 +179,7 @@ var MsgForm = React.createClass({
       dataHold = {
         author: dataHold.author,
         msg: dataHold.msg,
-        hash: hashHold
+        hash: Math.abs(hashHold)
       };
       var xhrT = $.ajax({
         url: this.props.url,
@@ -187,7 +195,7 @@ var MsgForm = React.createClass({
       this.setState( {
         xhr: xhrT,
         text: ''
-      })
+      });
     }
   },
   render: function() {
@@ -214,7 +222,7 @@ var MsgForm = React.createClass({
   },
   componentWillUnmount: function () {
     if( this.state.xhr != undefined ) {
-      this.state.xhr.abort()
+      this.state.xhr.abort();
     }
   }
 });

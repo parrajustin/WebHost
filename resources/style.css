@@ -36,7 +36,6 @@ body::-webkit-scrollbar-thumb {
 
 
 
-
 .header_Container {
 	height: auto;
 	width: auto;
@@ -332,6 +331,7 @@ body::-webkit-scrollbar-thumb {
 	min-height: 200px;
 
 	padding-top: 18px;
+	overflow-x: hidden;
 	overflow-y: scroll;
 	border-bottom: 2px solid red;
 }
@@ -409,6 +409,10 @@ body::-webkit-scrollbar-thumb {
 	float: right;
 	font-size: 40px;
 	cursor: default;
+
+	margin-left: 0px !important;
+	margin-right: 0px !important;
+	margin: 0px !important;
 }
 
 
@@ -420,12 +424,20 @@ body::-webkit-scrollbar-thumb {
 
 
 
-span.tip {
+#tip {
 
     /* Required */
     position: absolute;
-    z-index: 2;
+    z-index: 6;
     display: none;
+    font-size: 15px;
+    max-width: 150px;
+    height: auto;
+    padding: 10px;
+    border-radius: 3px;
+    box-shadow: 0 1px 2px #666;
+    background: red;
+    color: black;
 }
 
 
