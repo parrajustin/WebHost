@@ -21,7 +21,7 @@ module.exports = React.createClass({
         classHeaderLogo: 'header_Logo',
 
         ncStyle: { top: '82px', display: 'none' },
-        ncText: 'text',
+        ncText: '',
 
         classNotificationBody: 'notification_Body'
       };
@@ -78,7 +78,7 @@ module.exports = React.createClass({
     this.forceUpdate();
   },
   handleScroll: function () {
-    if( this.state.ncStyle.display == undefined ) {
+    if( this.state.ncStyle.display === 'none' ) {
       return;
     }
 
@@ -100,11 +100,11 @@ module.exports = React.createClass({
       ncStyle: { top: topTemp, display: 'none' }
     });
   },
-  notification: function (text) {
+  notification: function (textVar) {
     window.clearTimeout(this.state.notifDelayId);
     this.setState({
       ncStyle: { top: this.state.ncStyle.top },
-      ncText: text
+      ncText: ( textVar || 'ERROR! UNKOWN!' )
     });
     this.handleScroll();
     this.setState({

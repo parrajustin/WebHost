@@ -56,14 +56,16 @@ if (process.env.NODE_ENV === "development ") {
     id: '0',
     author: 'test',
     msg: 'this is the msg',
-    hash: '1233'
+    hash: '1233',
+    time: new Date().getTime()
   };
 
   var data2 = {
     id: '1',
     author: 'other',
     msg: 'this is the other msg',
-    hash: '1234'
+    hash: '1234',
+    time: new Date().getTime()
   };
 
   var array = [];
@@ -168,8 +170,13 @@ app.post('*/api/msg', function(req, res) {
   // store.setItem('chat-num',(num+1));
   // store.setItem('chat-'+num, { id: num, author: req.body["author"], msg: req.body["msg"] });
   var temp = store.getItem('chat');
-  temp.push({ id: temp.length, author: req.body["author"], msg: req.body["msg"], hash: req.body["hash"] });
+
+  req.body.forEach (function(item) {
+    temp.push({ id: temp.length, author: item["author"], msg: item["msg"], hash: item["hash"], time: item["time"] });
+  });
+
   store.setItem('chat', temp);
+  res.end('{"success" : "Updated Successfully", "status" : 200}');
 });
 
 app.get('*/resources/:fileName', function(req, res) {
