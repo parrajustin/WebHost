@@ -15,7 +15,7 @@
     "uglifyMaster": "node server.js",
     "test": "SET NODE_ENV=development && npm run testBrow && node index.js",
     "testBrow": "browserify -t [ envify purge ] -t reactify -t require-globify public/index.js -t require-globify public/jquery2.js -o public/bundle.js",
-    "start": "SET NODE_ENV=production && npm run babelroutes && npm run babel404 && npm run babel500 && npm run babelaccount && npm run babelchat && npm run babelhome && npm run babelLayout && npm run browserify && npm run uglifyMaster && node index.js",
+    "start": "NODE_ENV=production && npm run babelroutes && npm run babel404 && npm run babel500 && npm run babelaccount && npm run babelchat && npm run babelhome && npm run babelLayout && npm run browserify && npm run uglifyMaster && node index.js",
     "browserify": "browserify -t [ envify purge --NODE_ENV production ] -g uglifyify -x .js -t reactify -t require-globify public/index.min.js -t require-globify public/jquery2.min.js -o public/bundle.js"
   },
   "dependencies": {
