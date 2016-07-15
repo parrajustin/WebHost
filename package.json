@@ -5,20 +5,14 @@
   "author": "Justin R. Parra <parra.justin.main@gmail.com>",
   "main": "index.js",
   "scripts": {
-    "babelLayout": "babel --plugins transform-react-jsx public/views/layout.jsx -o public/views/layout.min.js",
-    "babel404": "babel --plugins transform-react-jsx public/views/404.jsx -o public/views/404.min.js",
-    "babel500": "babel --plugins transform-react-jsx public/views/500.jsx -o public/views/500.min.js",
-    "babelaccount": "babel --plugins transform-react-jsx public/views/account.jsx -o public/views/account.min.js",
-    "babelchat": "babel --plugins transform-react-jsx public/views/chat.jsx -o public/views/chat.min.js",
-    "babelhome": "babel --plugins transform-react-jsx public/views/home.jsx -o public/views/home.min.js",
-    "babelroutes": "babel --plugins transform-react-jsx public/routes.jsx -o public/routes.min.js",
+    "css": "uglifycss resources/style.css > resources/style.min.css",
     "uglifyMaster": "node server.js",
     "uglifyindex": "uglifyjs public/index.js  -o public/index.min.js --compress -m",
     "uglifyjquery2": "uglifyjs public/jquery2.js  -o public/jquery2.min.js --compress -m",
     "test": "SET NODE_ENV=development && npm run testBrow && node index.js",
     "testBrow": "browserify -t [ envify purge ] -t reactify -t require-globify public/index.js -t require-globify public/jquery2.js -o public/bundle.js",
-    "start": "NODE_ENV=production && npm run uglifyindex && npm run uglifyjquery2 && npm run babelroutes && npm run babel404 && npm run babel500 && npm run babelaccount && npm run babelchat && npm run babelhome && npm run babelLayout && npm run browserify && npm run uglifyMaster && node index.js",
-    "browserify": "browserify -t [ envify purge --NODE_ENV production ] -g uglifyify -x .js -t reactify -t require-globify public/index.min.js -t require-globify public/jquery2.min.js -o public/bundle.js"
+    "start": "SET NODE_ENV=production && npm run css && npm run uglifyindex && npm run uglifyjquery2 && npm run browserify && npm run uglifyMaster && node index.js",
+    "browserify": "browserify -t [ envify purge --NODE_ENV production ] -g uglifyify -t reactify -t require-globify public/index.min.js -t require-globify public/jquery2.min.js -o public/bundle.js"
   },
   "dependencies": {
     "JSONStream": "^1.1.3",
@@ -34,7 +28,6 @@
     "assert": "^1.3.0",
     "ast-types": "^0.8.15",
     "astw": "^2.0.0",
-    "babel-plugin-transform-react-jsx": "^6.8.0",
     "balanced-match": "^0.4.1",
     "base62": "^1.1.1",
     "base64-js": "^1.1.2",
@@ -229,6 +222,7 @@
     "typedarray": "^0.0.6",
     "ua-parser-js": "^0.7.10",
     "uglify-js": "^2.7.0",
+    "uglifycss": "0.0.20",
     "uglifyify": "^3.0.2",
     "umd": "^3.0.1",
     "unpipe": "^1.0.0",
@@ -242,8 +236,5 @@
     "whatwg-fetch": "^1.0.0",
     "wrappy": "^1.0.2",
     "xtend": "^4.0.1"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.10.1"
   }
 }

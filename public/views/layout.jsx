@@ -8,6 +8,7 @@ var React       = require('react')
 
 module.exports = React.createClass({
   getInitialState: function () {
+    if (process.env.NODE_ENV === "development ") {
       return {
         classNav: 'header_Nav',
         classNavBut: 'header_Nav_NonButton',
@@ -23,11 +24,34 @@ module.exports = React.createClass({
         ncStyle: { top: '82px', display: 'none' },
         ncText: '',
 
+        css: "/resources/style.css",
+
         classNotificationBody: 'notification_Body'
       };
+    } else {
+      return {
+        classNav: 'header_Nav',
+        classNavBut: 'header_Nav_NonButton',
+        classDropDown: 'header_Empty',
+        classVSpacers: 'header_NavSpace',
+        classNavSelect: 'header_NavSelect',
+        classNavSelectActive: 'header_NavActive',
+        classHSpacers: 'header_Nav_Hidden',
+        classIcon: 'header_Empty',
+        classHeaderBar: 'header_Bar',
+        classHeaderLogo: 'header_Logo',
+
+        ncStyle: { top: '82px', display: 'none' },
+        ncText: '',
+
+        css: "/resources/style.min.css",
+
+        classNotificationBody: 'notification_Body'
+      };
+    }
   },
   classNavBut: function () {
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || $(window).width() <= 500) {
       var btnClass = className({
         'header_Nav_Button': true, 
         'header_Nav_ButtonHighlight': this.state.isPressed || this.state.isHovered
@@ -48,7 +72,7 @@ module.exports = React.createClass({
     }
   },
   deadDrop: function () {
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || $(window).width() <= 500) {
       this.setState({
         classDropDown: className('header_Nav_Drop', 'header_Nav_Hidden')
       });
@@ -56,7 +80,8 @@ module.exports = React.createClass({
     }
   },
   componentDidMount: function () {
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    console.log($(window).width());
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || $(window).width() <= 500) {
       this.setState({
         classNav: 'header_Nav_Mobile',
         classNavBut: className({'header_Nav_Button': true, 'header_Nav_ButtonHighlight': this.state.isPressed || this.state.isHovered}),
@@ -68,7 +93,6 @@ module.exports = React.createClass({
         classIcon: className('header_Nav_Icon', 'icon'),
         classHeaderBar: 'header_Bar_Mobile',
         classHeaderLogo: 'header_Logo_Mobile',
-
         ncStyle: { top: '132px', display: 'none' }
       });
     }
@@ -117,7 +141,7 @@ module.exports = React.createClass({
         <head>
           <meta charSet='utf-8' />
           <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'/>
-          <link rel="stylesheet" href="/resources/style.css"/>
+          <link rel="stylesheet" href={this.state.css}/>
           <script src='/bundle.js'></script>
           <title>
             {this.props.title}

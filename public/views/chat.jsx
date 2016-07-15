@@ -152,7 +152,7 @@ var Messages = React.createClass({
     };
   },
   componentDidMount: function () {
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || $(window).width() <= 500) {
       this.setState({
         classUpperSection: className('chat_UpperSection', 'chat_UpperSection_Height_Mobile')
       });
@@ -265,7 +265,7 @@ var MsgForm = React.createClass({
   /** called once when the component is mounted on the client side */
   componentDidMount: function () {
     /** changes css sections that have mobile counterparts to those other versions */
-    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || $(window).width() <= 500) {
       this.setState({
         classLowerSection: 'chat_LowerSection_Mobile'
       });

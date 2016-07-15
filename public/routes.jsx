@@ -7,19 +7,11 @@ var Route = ReactRouter.Route;
 var IndexRoute = ReactRouter.IndexRoute;
 var Redirect = ReactRouter.Redirect;
 
-var Layout = require('./views/layout.jsx');
-var Account = require('./views/account.jsx');
-var Home = require('./views/home.jsx');
-var Chat = require('./views/chat.jsx');
-var Error404 = require('./views/404.jsx');
-
-if (!(process.env.NODE_ENV === "development ")) {
-	var Layout = require('./views/layout.min.js');
-	var Account = require('./views/account.min.js');
-	var Home = require('./views/home.min.js');
-	var Chat = require('./views/chat.min.js');
-	var Error404 = require('./views/404.min.js');
-}
+var Layout = require('./views/layout.jsx'),
+	Account = require('./views/account.jsx'),
+	Home = require('./views/home.jsx'),
+	Chat = require('./views/chat.jsx'),
+	Error404 = require('./views/404.jsx');
 
 var routes = module.exports = (
 	<Router>
