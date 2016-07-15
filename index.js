@@ -113,13 +113,14 @@ if (process.env.NODE_ENV === "development ") {
 
 // ================ EXPRESS SERVER SETUP ================
 // set the engine
-app.engine('.jsx', engine);
+if (process.env.NODE_ENV === "development ") { app.engine('.jsx', engine); } else {app.engine('.js', engine);}
+
 
 // set the view directory
 app.set('views', __dirname + '/public/views');
 
 // set jsx as the view engine
-app.set('view engine', 'jsx');
+if (process.env.NODE_ENV === "development ") { app.set('view engine', 'jsx'); } else {app.set('view engine', 'js');}
 
 // finally, set the custom view
 app.set('view', renderer.expressView);

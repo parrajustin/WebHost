@@ -13,6 +13,14 @@ var Home = require('./views/home.jsx');
 var Chat = require('./views/chat.jsx');
 var Error404 = require('./views/404.jsx');
 
+if (!(process.env.NODE_ENV === "development ")) {
+	var Layout = require('./views/layout.min.js');
+	var Account = require('./views/account.min.js');
+	var Home = require('./views/home.min.js');
+	var Chat = require('./views/chat.min.js');
+	var Error404 = require('./views/404.min.js');
+}
+
 var routes = module.exports = (
 	<Router>
 		<Route path='/' component={Layout}>
